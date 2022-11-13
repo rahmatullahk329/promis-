@@ -125,8 +125,3 @@ createPost({
 
 
 
-// why promise all is importan
-// Promise. all([]) is a useful helper function that lets use execute asynchronous operations in parallel,its asyncrounous it does not depend on other and, the exuction of code run simultinously
-
-// promise vs callback
-// A callback function is passed as an argument to another function whereas Promise is something that is achieved or completed in the future. In JavaScript, a promise is an object and we use the promise constructor to initialize a promis
