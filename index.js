@@ -228,8 +228,7 @@ postReq('rahul','kumar','jaipur','25k')
 
 axios.get('https://crudcrud.com/api/3b23d7886d5b4da7af884b413484d52c/userDetails',{
     params:{_limit:1},
-}
-).then(res => console.log(res))
+}).then(res => console.log(res))
 .catch(err =>{
     return Promise.reject(err)
 })
