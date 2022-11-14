@@ -171,4 +171,10 @@ function getTodos() {
     .addEventListener('click', transformResponse);
   document.getElementById('error').addEventListener('click', errorHandling);
   document.getElementById('cancel').addEventListener('click', cancelToken);
+  //  why do we need headers
+  // The HTTP headers are used to pass additional information between the clients and the server through the request and response header
+  // // what is axios
+  // Axios is a promised-based HTTP client for JavaScript. It has the ability to make HTTP requests from the browser and handle the transformation of request and response data
+
+  // most the time i counter eror while typing their correct name , i  did not have emmet is remember there name is not easy;
   
