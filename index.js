@@ -13,104 +13,104 @@ let post=[
     
 ]
 
-const getpost=()=>{
-    setTimeout(()=>{
-        post.forEach(e => {
-            let output = `<li> ${e.title} and ${e.date}</li>`;
-            document.body.insertAdjacentHTML('beforeend',output)
-        });
-    },2000)
-}
-const createPost= (postPara)=>{
-    return new Promise((resolve, reject) => {
-        const err =false;
-        setTimeout(()=>{
-            post.push(postPara);
-           
-            if(!err){
-                resolve('resolve');
-            }else{
-                reject('reject')
-            }
+
+
+
+// convertin previous m=promised into asyn funiton
+async function convertinIntoAsync(){
+    try{
+        //get post first function to get the 2 post element of an array
+        const getpost=()=>{
+            return new Promise((resolve, reject) => { 
+                setTimeout(()=>{
+                    post.forEach(e => {
+                        let output = `<li> ${e.title} and ${e.date}</li>`;
+                        document.body.insertAdjacentHTML('beforeend',output)
+                    });
+                    resolve('resolve')
+                },2000)
+             })
+        }
+
+        // creting post three
+        const createPost= (postPara)=>{
+            return new Promise((resolve, reject) => {
+                const err =false;
+                setTimeout(()=>{
+                    post.push(postPara);
+                   
+                    if(!err){
+                        resolve('resolve');
+                    }else{
+                        reject('reject')
+                    }
+                    
+                },500) 
+                
+             })
             
-        },500) 
+        }
+
+        // creatinpost 4 over here
+        const createPost4 =(post4th)=>{
+            return new Promise((resolve, reject) => { 
+                setTimeout(()=>{
+                    post.push(post4th);
+                    resolve('resolved')
+                },1000)
+             })
+        }
+
+        // update last avcitvity
+        const updateLasrActivity=()=>{
+            let d = new Date();
+            return new Promise((resolve, reject) => { 
+                if(d){
+                    resolve('user last activity '+d.getSeconds()+5+ ' sec ago')
+                }else{
+                    reject('not having date')
+                }
+             })
+        }
         
-     })
+        //deleting post
+        const deletePost=(post)=>{
+            let count = post.length;
+            return new Promise((resolve, reject) => { 
+                if(count !== 0){
+                    let storeDeletedValue= post.pop()
+                    resolve(storeDeletedValue)
+                    count--;
+                }else{
+                    reject('array is mepty')
+                }
+             })
+        }
     
-}
 
-
-
-    const createPost4 =(post4th)=>{
-        setTimeout(()=>{
-            post.push(post4th);
-        },1000)
+        // this is calling section
+       await getpost();
+       await createPost({title:'post three', date : `last seen ${d.getSeconds()+15} sec ago`});
+       updateLasrActivity()
+       await deletePost();
+       updateLasrActivity()
+       await deletePost();
+       updateLasrActivity()
+       await deletePost();
+       updateLasrActivity()
+       await createPost4({title:'post four', date : `last seen ${d.getSeconds()+12} sec ago`});
+       updateLasrActivity()
+       // deleting past after 1 hour
+       setTimeout(() => {
+        deletePost();
+        updateLasrActivity()
+       }, 1000);
+    }catch{
+        console.error(err);
     }
-
-    
-// making an object to track last user activity
-const updateLasrActivity=()=>{
-    let d = new Date();
-    return new Promise((resolve, reject) => { 
-        if(d){
-            resolve('user last activity '+d.getSeconds()+5+ ' sec ago')
-        }else{
-            reject('not having date')
-        }
-     })
 }
-
-const deletePost=(post)=>{
-    let count = post.length;
-    return new Promise((resolve, reject) => { 
-        if(count !== 0){
-            let storeDeletedValue= post.pop()
-            resolve(storeDeletedValue)
-            count--;
-        }else{
-            reject('array is mepty')
-        }
-     })
-}
-
-createPost({
-    title:'post three',
-     date : `last seen ${d.getSeconds()+15} sec ago`
-})
-.then((res)=>{
-    getpost();
-    deletePost(post).then((res)=>{
-        updateLasrActivity().then(lastActivity => console.log(lastActivity +' and  user deleted '))
-        console.log(res);
-    });
-
-    deletePost(post).then((res)=>{
-        updateLasrActivity().then(lastActivity => console.log(lastActivity +' and  user deleted '))
-        console.log(res);
-    });
-    deletePost(post).then((res)=>{
-        updateLasrActivity().then(lastActivity => console.log(lastActivity +' and  user deleted '))
-        console.log(res);
-    });
-
-   
-    createPost4({
-        title:'post four',
-         date : `last seen ${d.getSeconds()+12} sec ago`
-    })
-    
-
-    setTimeout(()=>{
-        deletePost(post).then((res)=>{
-            updateLasrActivity().then(lastActivity => console.log(lastActivity +' and  user deleted '))
-            console.log(res);
-        });
-    },1000)
-
-})
+convertinIntoAsync().then(res => console.log(res))
 .catch(err=> console.log(err))
-
-
 // promise.all
 
 // const p1 = Promise.resolve(4);
@@ -125,3 +125,84 @@ createPost({
 
 
 
+// promised and async and aeait
+async function normalfunc(){
+    const hello=()=>{
+        console.log('hello 1');
+    }
+    const delhiWeather=  new Promise((resolve, reject) => { 
+       setTimeout(() => {
+        resolve('hello 2');
+       }, 3000); 
+     })
+     const bangloareWeather=  new Promise((resolve, reject) => { 
+        setTimeout(() => {
+            resolve('hello 3'); 
+           }, 5000); 
+      })
+      console.log('delhiW is awating ... ');
+     let delhiW= await  delhiWeather;
+     console.log('delhiW is fecthed ... ');
+
+     console.log('banglore W is awating ... ');
+     let bangW= await bangloareWeather;
+     console.log('banglore W is fetched ... ');
+
+
+     return [delhiW,bangW]
+}
+console.log('before normal async function');
+normalfunc().then(t => console.log(t))
+console.log('after normal async function');
+
+
+
+
+// using promised for pushing student details 
+let student=[
+    {
+        student_name :'rehansh',
+        roll :325,
+        passed :true,
+    },
+    {
+        student_name :'rahul',
+        roll :155,
+        passed :false,
+    }
+]
+
+const enrollStudent =(enroll)=>{
+   return new Promise((resolve, reject) => { 
+    setTimeout(() => {
+        if(enroll){
+            student.push(enroll)
+            resolve();
+        }else{
+            reject('rejetc')
+        }
+    }, 1000);
+   })
+}
+
+const getStudent= (student)=>{
+    return new Promise((resolve, reject) => { 
+        if(student){
+           student.forEach(e => {
+            let lis = `<li> student name ${e.student_name} student passed = ${e.passed}</li>`
+            document.body.insertAdjacentHTML('beforeend',lis)
+           });
+           resolve('resolved')
+        }else{
+            reject('reject')
+        }
+     })
+}
+enrollStudent({
+    student_name :'rohit',
+    roll :125,
+    passed :true,
+}).then((res)=>{
+    getStudent(student).then(res=> console.log(res))
+
+})
