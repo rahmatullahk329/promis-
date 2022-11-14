@@ -1,52 +1,128 @@
 // GET REQUEST
 function getTodos() {
-    console.log('GET Request');
+    axios.get('https://jsonplaceholder.typicode.com/posts',{
+      params: {_limit:7},
+    }).then(res => showOutput(res))
+    .catch(err => console.log(err))
   }
+
   
   // POST REQUEST
   function addTodo() {
-    console.log('POST Request');
+    axios.post('https://jsonplaceholder.typicode.com/posts',{
+        title : 'i am very exited to use axios' ,
+        body:'this is my body' 
+    }).then(post => showOutput(post))
+    .catch(err => console.log(err))
   }
   
   // PUT/PATCH REQUEST
   function updateTodo() {
-    console.log('PUT/PATCH Request');
+    axios.patch('https://jsonplaceholder.typicode.com/posts/3',{
+      title : ' this is the put mehtod ' ,
+        body:' i updated the value just at 5:25 pm' 
+    }).then(post => showOutput(post))
+    .catch(err => console.log(err))
   }
   
   // DELETE REQUEST
   function removeTodo() {
-    console.log('DELETE Request');
+    axios.delete('https://jsonplaceholder.typicode.com/posts/3',{
+
+    }).then(post => showOutput(post))
+    .catch(err => console.log(err))
   }
   
   // SIMULTANEOUS DATA
   function getData() {
-    console.log('Simultaneous Request');
+    // get 2 api simultaneuslu
+    axios.all([
+      axios.get('https://jsonplaceholder.typicode.com/posts',{ params: {_limit:5}}),
+      axios.get('https://jsonplaceholder.typicode.com/todos',{ params: {_limit:5}})
+    ]).then(axios.spread((todos,post)=>{
+      console.log(post);
+      console.log(todos);
+    }))
+    .catch(err => console.log(err))
   }
   
   // CUSTOM HEADERS
   function customHeaders() {
-    console.log('Custom Headers');
+    const config= {
+      headers :{
+        'Content-Type' :'application/json',
+        Athorizatoin:'sometaken'
+      }
+    }
+    axios.post('https://jsonplaceholder.typicode.com/posts',{
+        title : 'i am very exited to use axios' ,
+        body:'this is my body' 
+    },
+    config
+    )
+    .then(post => showOutput(post))
+    .catch(err => console.log(err))
   }
   
-  // TRANSFORMING REQUESTS & RESPONSES
+  // TRANSFORMING REQUESTS & RESPONSES // devoloper not use that much;
   function transformResponse() {
     console.log('Transform Response');
   }
   
   // ERROR HANDLING
   function errorHandling() {
-    console.log('Error Handling');
+    axios.get('https://jsonplaceholder.typicode.com/pos',{
+      params: {_limit:7},
+    }).then(res => showOutput(res))
+    .catch((err)=>{
+      if(err.response){
+        console.log(err.response.data);
+        console.log(err.response.status);
+        console.log(err.response.headers);
+      }
+      if(err.response.status == 404){
+        alert('404 page not found')
+      }else if( err.request){
+        console.log(err.request);
+      }else{
+        console.log(err.message);
+      }
+    })
   }
   
+
+  // axios global
+  axios.defaults.headers.common['X-Auth_token']='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'
   // CANCEL TOKEN
   function cancelToken() {
-    console.log('Cancel Token');
+    const source = axios.cancelToken.source()
+    axios.get('https://jsonplaceholder.typicode.com/posts',{
+      params: {_limit:7},
+      cancelToken :source.token,
+    }).then(res => showOutput(res))
+    .catch(thrown=>{
+      if(axios.isCancel(thrown)){
+        console.log(`axios is canceled ${thrown.message}`);
+      }
+    })
+    if(true){
+      source.cancel('request is cancelled', thrown.message)
+    }
   }
+
   
   // INTERCEPTING REQUESTS & RESPONSES
-  
+  axios.interceptors.request.use(config=>{
+    console.log(`${config.method.toUpperCase()} send to ${config.url} at ${new Date().getTime()}`);
+    return config
+  },error => {
+    return Promise.reject(error)
+  })
   // AXIOS INSTANCES
-  
+  const axiosInstances = axios.create({
+    baseURL:'https://jsonplaceholder.typicode.com'
+  })
+  axiosInstances.get('/comments?_limit:5').then(res=> showOutput(res))
   // Show output in browser
   function showOutput(res) {
     document.getElementById('res').innerHTML = `
