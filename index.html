@@ -8,25 +8,36 @@
     <title>Document</title>
 </head>
 <body>
-    <div class="main-div">
-      <form action="">
-        <div id="box">
-          <label for="name">Name :</label>
-          <input type="text" name="name" id="name" >
-        </div>
-        <div id="box">
-          <label for="email">email</label>
-            <input type="email" name="email" id="email" value="@xyz.com" >
-        </div>
-        <div id="box">
-          <label for="phone">Phone No. :</label>
-          <input type="text" name="phone" id="phone" value="+91">
-        </div>
-        <div id="btn">
-          <button type="button" >submit</button>
-        </div>
+
+  <div class="main-div">
+    <form action="">
+      <div id="box">
+      <label for="name">Expense Amount :</label>
+      <input type="text" name="name" id="name"  placeholder="choose expense amount">
+      </div>
+      
+      <div id="box">
+      <label for="descrip">Expense Description :</label>
+          <input type="text" name="descrip" id="descrip">
+      </div>
+      
+      <div id="box">
+      <label for="phone">Expense Catagotry :</label>
+        <select name="option" id="select-tag" >
+          <option value=""></option>
+          <option value="food">Food</option>
+          <option value="movie">Movies</option>
+          <option value="library">Library</option>
+          <option value="fuel">Fuel</option>
+          <option value="electricity">Electricity</option>
+        </select>
+      </div>
+      <div className="submit-btn">
+          <button type='button' onClick={makeJson}>submit</button>
+      </div>
       </form>
-    </div>
+  </div>
+  
      
     <div class="sec-div">
       <div id="root">
