@@ -4,46 +4,47 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital@1&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./index.css">
     <title>Document</title>
 </head>
 <body>
 
   <div class="main-div">
-    <form action="">
-      <div id="box">
-      <label for="name">Expense Amount :</label>
-      <input type="text" name="name" id="name"  placeholder="choose expense amount">
-      </div>
-      
-      <div id="box">
-      <label for="descrip">Expense Description :</label>
-          <input type="text" name="descrip" id="descrip">
-      </div>
-      
-      <div id="box">
-      <label for="phone">Expense Catagotry :</label>
-        <select name="option" id="select-tag" >
-          <option value=""></option>
-          <option value="food">Food</option>
-          <option value="movie">Movies</option>
-          <option value="library">Library</option>
-          <option value="fuel">Fuel</option>
-          <option value="electricity">Electricity</option>
-        </select>
-      </div>
-      <div className="submit-btn">
-          <button type='button' onClick={makeJson}>submit</button>
-      </div>
+    <div class="form-div">
+      <form action="">
+        <div id="box">
+        <label for="amount">Expense Amount :</label>
+        <input type="text" name="amount" id="amount"  placeholder="choose expense amount" value="Rs .">
+        </div>
+        
+        <div id="box">
+        <label for="descrip">Expense Description :</label>
+            <input type="text" name="descrip" id="descrip" placeholder="describe the expenditure">
+        </div>
+        
+        <div id="box">
+        <label for="#select-tag">Expense Catagotry :</label>
+          <select name="option" id="select-tag" >
+            <option value="">select</option>
+            <option value="food">Food</option>
+            <option value="movie">Movies</option>
+            <option value="library">Library</option>
+            <option value="fuel">Fuel</option>
+            <option value="electricity">Electricity</option>
+          </select>
+        </div>
+        <div class="submit-btn">
+            <button type='button' id="submit_btn">submit</button>
+        </div>
       </form>
+    </div>
+
+      <div class="display_area">
+         
+      </div>
   </div>
   
-     
-    <div class="sec-div">
-      <div id="root">
-          
-      </div>
-    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.1.3/axios.min.js"></script>
     <script src="./index.js"></script>
 </body>
